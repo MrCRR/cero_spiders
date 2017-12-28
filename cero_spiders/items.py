@@ -8,3 +8,4 @@ class DateGirlItem(scrapy.Item):
     title = scrapy.Field()
     introduce = scrapy.Field()
     images = scrapy.Field()
+    likes = scrapy.Field()

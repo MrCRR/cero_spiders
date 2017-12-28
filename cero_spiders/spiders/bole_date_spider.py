@@ -26,4 +26,5 @@ class BoleDateSpider(scrapy.Spider):
         item['title'] = response.css('.p-tit-single::text').extract_first()
         item['introduce'] = response.css('div.p-entry').css('p::text').extract()
         item['images'] = response.css('.alignnone').xpath('@src').extract()
+        item['likes'] = response.css('h10::text').extract_first()
         yield item
