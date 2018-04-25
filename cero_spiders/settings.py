@@ -68,7 +68,8 @@ ROBOTSTXT_OBEY = True
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
 #    'cero_spiders.pipelines.ScrapyDemoPipeline': 300,
-    'cero_spiders.pipelines.DateGirlPipeline': 300,
+#     'cero_spiders.pipelines.DateGirlPipeline': 300,
+    'cero_spiders.pipelines.IndeedReviewPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

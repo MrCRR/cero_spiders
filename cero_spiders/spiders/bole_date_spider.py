@@ -15,9 +15,9 @@ class BoleDateSpider(scrapy.Spider):
         for rec in response.css('h3.p-tit').css('a::attr(href)').extract():
             yield scrapy.Request(rec, callback=self.parse_girl)
 
-        next_page = response.xpath('//li[@id="pagination-next-page"]/a/@href').extract()
+        next_page = response.xpath('//li[@id="pagination-next-page"]/a/@href').extract_first()
         if next_page:
-            yield scrapy.Request(next_page[0], self.parse)
+            yield scrapy.Request(next_page, self.parse)
 
     def parse_girl(self, response):
         item = DateGirlItem()
