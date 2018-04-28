@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 from scrapy.exceptions import DropItem
-from items import DateGirlItem, IndeedReviewItem
+from items import *
 from cero_spiders.settings import BASE_DIR
 
 
@@ -54,4 +54,28 @@ class IndeedReviewPipeline(object):
             raise DropItem('Data already existed!')
         else:
             self.new_review.append(item)
+        return item
+
+
+class WeixinSogouPipeline(object):
+    def __init__(self):
+        self.article_json_path = os.path.join(BASE_DIR, 'media/wexin_sogou.json')
+        if os.path.exists(self.article_json_path):
+            self.df = pd.read_json(self.article_json_path, dtype=False)
+            self.titles = set(self.df['title'])
+        else:
+            self.df = pd.DataFrame(columns=WeixinSogouItem.fields.keys())
+            self.titles = set()
+        self.new_article = []
+
+    def close_spider(self, spider):
+        new_article_df = pd.DataFrame(self.new_article)
+        self.df = pd.concat((self.df, new_article_df))
+        self.df.to_json(self.article_json_path, orient='records')
+
+    def process_item(self, item, spider):
+        if item['title'] in self.titles:
+            raise DropItem('Data already existed!')
+        else:
+            self.new_article.append(item)
         return item

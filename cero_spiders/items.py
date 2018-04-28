@@ -17,3 +17,8 @@ class IndeedReviewItem(scrapy.Item):
     content = scrapy.Field()
     pro = scrapy.Field()
     con = scrapy.Field()
+
+
+class WeixinSogouItem(scrapy.Item):
+    title = scrapy.Field()
+    image_urls = scrapy.Field()

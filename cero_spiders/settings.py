@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #USER_AGENT = 'cero_spiders (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -69,8 +69,11 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
 #    'cero_spiders.pipelines.ScrapyDemoPipeline': 300,
 #     'cero_spiders.pipelines.DateGirlPipeline': 300,
-    'cero_spiders.pipelines.IndeedReviewPipeline': 300,
+#     'cero_spiders.pipelines.WeixinSogouPipeline': 300,
+    'scrapy.pipelines.images.ImagesPipeline': 1
 }
+
+IMAGES_STORE = os.path.join(BASE_DIR, 'qrcode')
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

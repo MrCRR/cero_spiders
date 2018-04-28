@@ -24,7 +24,7 @@ class IndeedReviewSpider(scrapy.Spider):
             item['pro'] = selector.css('.cmp-review-pro-text::text').extract_first()
             item['con'] = selector.css('.cmp-review-con-text::text').extract_first()
             yield item
-            # yield self.parse_review(container)
+            # yield self.parse_review(selector)
 
         next_page = response.css('.cmp-Pagination-link--nav::attr(href)').extract_first()
         if next_page:
@@ -32,6 +32,7 @@ class IndeedReviewSpider(scrapy.Spider):
 
     def parse_review(self, selector):
         item = IndeedReviewItem()
+        item['id'] = selector.css('.cmp-review::attr(data-tn-entityid)').extract_first()
         item['head'] = selector.css('.cmp-review-title').css('span::text').extract_first()
         item['content'] = selector.css('.cmp-review-text').css('span::text').extract_first()
         item['pro'] = selector.css('.cmp-review-pro-text').extract_first()
