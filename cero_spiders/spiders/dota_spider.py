@@ -71,9 +71,7 @@ class SteamSpider(scrapy.Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield FormRequest(url.format(self.page_num*self.page_size, self.page_size), method='GET', meta={
-                'proxy': 'http://127.0.0.1:1080'
-            })
+            yield FormRequest(url.format(self.page_num*self.page_size, self.page_size), method='GET')
 
     def parse(self, response):
         res = json.loads(response.body)
@@ -95,6 +93,4 @@ class SteamSpider(scrapy.Spider):
             yield item
 
         if start + page_size < total_count:
-            yield scrapy.Request(self.start_urls[0].format(start+page_size, self.page_size), meta={
-                'proxy': 'http://127.0.0.1:1080'
-            }, callback=self.parse)
+            yield scrapy.Request(self.start_urls[0].format(start+page_size, self.page_size), callback=self.parse)

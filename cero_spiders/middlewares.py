@@ -6,7 +6,8 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-
+import random
+from .settings import IpPool
 
 class ScrapyDemoSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -54,3 +55,13 @@ class ScrapyDemoSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class ProxyMiddleware(object):
+    def __init__(self, ip=''):
+        self.ip = ip
+
+    def process_request(self, request, spider):
+        thisip = random.choice(IpPool)
+        print("proxy ip:" + thisip)
+        request.meta["proxy"] = thisip

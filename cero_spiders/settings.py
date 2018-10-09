@@ -15,6 +15,15 @@ BOT_NAME = 'cero_spiders'
 SPIDER_MODULES = ['cero_spiders.spiders']
 NEWSPIDER_MODULE = 'cero_spiders.spiders'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+IpPool = [
+    'http://127.0.0.1:1080',
+    # 'http://47.90.15.119:80'
+    # 'http://118.193.26.18:8080',
+    # 'http://45.62.238.147:5605',
+    # 'http://64.137.251.141:5605',
+    # 'http://64.137.250.136:5605',
+    # 'http://64.137.228.35:5605',
+]
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -29,7 +38,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 20
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -54,9 +63,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'cero_spiders.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'cero_spiders.middlewares.ProxyMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
