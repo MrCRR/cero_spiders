@@ -70,7 +70,8 @@ ITEM_PIPELINES = {
 #    'cero_spiders.pipelines.ScrapyDemoPipeline': 300,
 #     'cero_spiders.pipelines.DateGirlPipeline': 300,
 #     'cero_spiders.pipelines.WeixinSogouPipeline': 300,
-    'scrapy.pipelines.images.ImagesPipeline': 1
+#     'scrapy.pipelines.images.ImagesPipeline': 1,
+    'cero_spiders.pipelines.BuffPipeline': 300,
 }
 
 IMAGES_STORE = os.path.join(BASE_DIR, 'qrcode')

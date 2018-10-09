@@ -22,3 +22,11 @@ class IndeedReviewItem(scrapy.Item):
 class WeixinSogouItem(scrapy.Item):
     title = scrapy.Field()
     image_urls = scrapy.Field()
+
+
+class BuffItem(scrapy.Item):
+    hero = scrapy.Field()
+    name = scrapy.Field()
+    buy_max_price = scrapy.Field()
+    sell_min_price = scrapy.Field()
+    steam_price_cny = scrapy.Field()

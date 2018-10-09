@@ -2,8 +2,9 @@
 import os
 import pandas as pd
 
-from scrapy.exceptions import DropItem
-from items import *
+from scrapy.exceptions import CloseSpider, DropItem
+from .items import *
+from .arsenal import CONN, df2tbl, clean_tbl
 from cero_spiders.settings import BASE_DIR
 
 
@@ -78,4 +79,24 @@ class WeixinSogouPipeline(object):
             raise DropItem('Data already existed!')
         else:
             self.new_article.append(item)
+        return item
+
+
+class BuffPipeline(object):
+    def __init__(self):
+        try:
+            clean_tbl('buff', CONN)
+        except Exception:
+            raise CloseSpider('DB CONN Invalid')
+        self.item_list = []
+
+    def close_spider(self, spider):
+        if not self.item_list:
+            pass
+        else:
+            item_df = pd.DataFrame(self.item_list).drop_duplicates(subset=['hero', 'name'])
+            df2tbl(item_df, 'buff', CONN)
+
+    def process_item(self, item, spider):
+        self.item_list.append(dict(item))
         return item
