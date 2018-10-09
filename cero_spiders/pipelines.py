@@ -82,21 +82,30 @@ class WeixinSogouPipeline(object):
         return item
 
 
-class BuffPipeline(object):
+class DotaPipeline(object):
     def __init__(self):
-        try:
-            clean_tbl('buff', CONN)
-        except Exception:
-            raise CloseSpider('DB CONN Invalid')
         self.item_list = []
-
-    def close_spider(self, spider):
-        if not self.item_list:
-            pass
-        else:
-            item_df = pd.DataFrame(self.item_list).drop_duplicates(subset=['hero', 'name'])
-            df2tbl(item_df, 'buff', CONN)
 
     def process_item(self, item, spider):
         self.item_list.append(dict(item))
         return item
+
+
+class BuffPipeline(DotaPipeline):
+    def close_spider(self, spider):
+        clean_tbl('buff', CONN)
+        if not self.item_list:
+            pass
+        else:
+            item_df = pd.DataFrame(self.item_list).drop_duplicates(subset=['hero', 'market_name'])
+            df2tbl(item_df, 'buff', CONN)
+
+
+class SteamPipeline(DotaPipeline):
+    def close_spider(self, spider):
+        clean_tbl('steam', CONN)
+        if not self.item_list:
+            pass
+        else:
+            item_df = pd.DataFrame(self.item_list).drop_duplicates(subset=['hero', 'market_name'])
+            df2tbl(item_df, 'steam', CONN)

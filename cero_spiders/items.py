@@ -26,6 +26,7 @@ class WeixinSogouItem(scrapy.Item):
 
 class BuffItem(scrapy.Item):
     hero = scrapy.Field()
+    market_name = scrapy.Field()
     name = scrapy.Field()
     buy_max_price = scrapy.Field()
     sell_min_price = scrapy.Field()
